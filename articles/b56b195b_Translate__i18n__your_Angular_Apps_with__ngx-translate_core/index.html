@@ -27,7 +27,7 @@ I would like to introduce you to a nice alternative here</p>
 
 <p translation-result="on">首先我们要安装 @ngx-translate/core。</p><p translation-origin="off">OK, first of all we have to install @ngx-translate/core.</p>
 
-<pre><code class="language-bash"><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">install</span> @<span class="hljs-keyword">ngx</span>-<span class="hljs-keyword">translate</span>/<span class="hljs-keyword">core</span> --save</code></pre>
+<pre><code class="language-bash">npm <span class="hljs-keyword">install</span> @ngx-<span class="hljs-keyword">translate</span>/core <span class="hljs-comment">--save</span></code></pre>
 <p translation-result="on">接着，我们还要把 TranslateModule 像其它模块一样导入到应用中。</p><p translation-origin="off">Then we have to import the TranslateModule into our application as you would any other module.</p>
 
 <pre><code class="language-javascript"><span class="hljs-keyword">import</span> { BrowserModule } <span class="hljs-keyword">from</span> <span class="hljs-string">"@angular/platform-browser"</span>;
@@ -71,10 +71,10 @@ translate.get(<span class="hljs-string">"HELLO"</span>, { value: <span class="hl
   <span class="hljs-built_in">console</span>.log(res); <span class="hljs-comment">//=&gt; 'hello world'</span>
 });</code></pre>
 <p>TranslatePipe</p>
-<pre><code class="language-javascript"><span class="hljs-comment">// app.component.ts</span>
-param = { <span class="hljs-keyword">value</span>: <span class="hljs-string">"world"</span> };</code></pre>
-<pre><code class="language-html"><span class="hljs-comment">// app.component.html</span>
-{{ 'HELLO' <span class="hljs-string">| translate:param }}</span></code></pre>
+<pre><code class="language-javascript"><span class="hljs-regexp">//</span> app.component.ts
+param = { value: <span class="hljs-string">"world"</span> };</code></pre>
+<pre><code class="language-html"><span class="xml">// app.component.html
+</span><span class="hljs-template-variable">{{ <span class="hljs-name">'HELLO'</span> | translate:param }}</span></code></pre>
 <p>TranslateDirective</p>
 <pre><code class="language-html"><span class="xml">// app.component.html
 <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">translate</span>=<span class="hljs-string">"HELLO"</span> <span class="hljs-attr">translate-params</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{value: 'world'}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> &gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span></code></pre>
@@ -121,7 +121,7 @@ It uses ICU syntax for handling pluralization and gender</p>
 By default, there is no loader available. You can add translations manually using setTranslation but it is better to use a loader. You can write your own loader, or import an existing one. For example you can use the TranslateHttpLoader that will load translations from files using HttpClient.
 To use it, you need to install the http-loader package from @ngx-translate:</p>
 
-<pre><code class="language-bash"><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">install</span> @<span class="hljs-keyword">ngx</span>-<span class="hljs-keyword">translate</span>/<span class="hljs-keyword">http</span>-<span class="hljs-keyword">loader</span> --save</code></pre>
+<pre><code class="language-bash">npm <span class="hljs-keyword">install</span> @ngx-<span class="hljs-keyword">translate</span>/<span class="hljs-keyword">http</span>-loader <span class="hljs-comment">--save</span></code></pre>
 <p translation-result="on">翻译文件有两种类型：.json 和 .po。还有一个用于 po 文件的加载器，但它使用了已废弃的 Http 服务，所以我们必须使用自己的（因为有 HttpClient 了）：</p><p translation-origin="off">There are two types of translation files out there. .json and .po
 There is a loader for po files aswell but it uses the deprecated Http service so we have to go with our own (because of HttpClient):</p>
 
@@ -142,9 +142,9 @@ There is a loader for po files aswell but it uses the deprecated Http service so
 
   <span class="hljs-comment">// Gets the translations from file</span>
   <span class="hljs-keyword">public</span> getTranslation(lang: <span class="hljs-built_in">string</span>): Observable {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._http
-      .get(<span class="hljs-string">`<span class="hljs-subst">${this._prefix}</span>/<span class="hljs-subst">${lang}</span><span class="hljs-subst">${this._suffix}</span>`</span>, { responseType: <span class="hljs-string">"text"</span> })
-      .map(<span class="hljs-function">(<span class="hljs-params">contents: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-keyword">this</span>.parse(contents));
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._http
+      .get(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">this</span>._prefix}</span>/<span class="hljs-subst">${lang}</span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._suffix}</span>`</span>, { responseType: <span class="hljs-string">"text"</span> })
+      .map(<span class="hljs-function">(<span class="hljs-params">contents: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">this</span>.parse(contents));
   }
 
   <span class="hljs-comment">// Parse po file</span>
@@ -152,12 +152,12 @@ There is a loader for po files aswell but it uses the deprecated Http service so
     <span class="hljs-keyword">const</span> translations: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> } = {};
 
     <span class="hljs-keyword">const</span> po = gettext.po.parse(contents, <span class="hljs-string">"utf-8"</span>);
-    <span class="hljs-keyword">if</span> (!po.translations.hasOwnProperty(<span class="hljs-keyword">this</span>.domain)) {
+    <span class="hljs-keyword">if</span> (!po.translations.hasOwnProperty(<span class="hljs-built_in">this</span>.domain)) {
       <span class="hljs-keyword">return</span> translations;
     }
 
-    <span class="hljs-built_in">Object</span>.keys(po.translations[<span class="hljs-keyword">this</span>.domain]).forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {
-      <span class="hljs-keyword">const</span> translation: <span class="hljs-built_in">string</span> = po.translations[<span class="hljs-keyword">this</span>.domain][
+    <span class="hljs-built_in">Object</span>.keys(po.translations[<span class="hljs-built_in">this</span>.domain]).forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {
+      <span class="hljs-keyword">const</span> translation: <span class="hljs-built_in">string</span> = po.translations[<span class="hljs-built_in">this</span>.domain][
         key
       ].msgstr.pop();
       <span class="hljs-keyword">if</span> (key.length &gt; <span class="hljs-number">0</span> &amp;&amp; translation.length &gt; <span class="hljs-number">0</span>) {
@@ -247,11 +247,11 @@ msgstr <span class="hljs-string">"Coder!!!!!!"</span></code></pre>
 }</code></pre>
 <p translation-result="on">如何在模板中使用它：</p><p translation-origin="off">How to use it in templates:</p>
 
-<pre><code class="language-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span><span class="xquery">{{ <span class="hljs-string">'greetings'</span> |<span class="hljs-built_in"> translate</span>:{gender: Male}</span><span class="xml"> }}<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span>
+<pre><code class="language-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span><span class="hljs-template-variable">{{ <span class="hljs-name">'greetings'</span> | translate:{gender: Male} }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
 
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span></span><span class="xquery">{{ <span class="hljs-string">'words'</span> |<span class="hljs-built_in"> translate</span>:<span class="hljs-built_in">{count</span>:<span class="hljs-number">7</span>}</span><span class="xml"> }}<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span></span><span class="hljs-template-variable">{{ <span class="hljs-name">'words'</span> | translate:{count:7} }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span></code></pre>
 <pre><code class="language-javascript"><span class="hljs-comment">// Use the service</span>
-Controller: <span class="hljs-keyword">this</span>.translate.get(<span class="hljs-string">"harish"</span>).subscribe(<span class="hljs-function"><span class="hljs-params">h</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(h)); <span class="hljs-comment">//=&gt; Coder!!!!!!</span></code></pre>
+<span class="hljs-attr">Controller</span>: <span class="hljs-built_in">this</span>.translate.get(<span class="hljs-string">"harish"</span>).subscribe(<span class="hljs-function"><span class="hljs-params">h</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(h)); <span class="hljs-comment">//=&gt; Coder!!!!!!</span></code></pre>
 <p translation-result="on">致谢：感谢 <a href="https://twitter.com/SebFlorian" target="_blank">@SebFlorian</a>、<a href="https://twitter.com/tobmaster" target="_blank">@tobmaster</a> 和 <a href="https://twitter.com/Sureshkumar_Ash" target="_blank">@Sureshkumar_Ash</a> 进行审校。</p><p translation-origin="off">Credits:
 Thx <a href="https://twitter.com/SebFlorian" rel="noopener" target="_blank">@SebFlorian</a>, <a href="https://twitter.com/tobmaster" target="_blank">@tobmaster</a> <a href="https://twitter.com/Sureshkumar_Ash" rel="noopener" target="_blank">@Sureshkumar_Ash</a> for reviewing.</p>
 
@@ -272,6 +272,6 @@ Thx <a href="https://twitter.com/SebFlorian" rel="noopener" target="_blank">@Seb
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.08e1e534efe3541e276e.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.2494c62dc736ab659190.js" defer=""></script>
 
 </body></html>

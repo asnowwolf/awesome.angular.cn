@@ -118,7 +118,7 @@
 
 <pre><code class="language-typescript"><span class="hljs-keyword">private</span> selectionSubject = <span class="hljs-keyword">new</span> Subject&lt;SelectionEvent&gt;();
 ...
-<span class="hljs-keyword">this</span>.selectionEvent
+<span class="hljs-built_in">this</span>.selectionEvent
   .pipe(
     concatMap(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
       ...
@@ -176,7 +176,7 @@
 <p translation-result="on">另外，我们还<strong>可以用 <code>Observable.create(...)</code> 自行创建一个 Observable</strong> ：</p><p translation-origin="off">Alternatively, we <strong>can create an Observable by ourselves</strong> with <code>Observable.create(...)</code>:</p>
 
 <pre><code class="language-typescript"><span class="hljs-keyword">return</span> Observable.create(<span class="hljs-function">(<span class="hljs-params">observer</span>) =&gt;</span> {
-  <span class="hljs-keyword">const</span> timeout = setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Returning data'</span>);
     observer.next({
       <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD'</span>,
@@ -188,7 +188,7 @@
   }, <span class="hljs-number">1500</span>);
 
   <span class="hljs-comment">// cancel timeout on unsubscribe</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> clearTimeout(timeout);
+  <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">clearTimeout</span>(timeout);
 });</code></pre>
 <h3 id="the-entire-concatmap-example" translation-result="on"><code>concatMap</code> 的完整例子<a href="http://localhost:4000/articles/032d55b5_Guarantee_Event_Order_with_RxJS#the-entire-concatmap-example" title="点击链接到此标题" class="header-link" aria-hidden="true"><i class="material-icons">link</i></a></h3><h3 translation-origin="off">The entire <code>concatMap</code> example</h3>
 
@@ -200,7 +200,7 @@
   <span class="hljs-keyword">if</span> (data.checkboxEvent.checked) {
     <span class="hljs-comment">// simulate async call</span>
     <span class="hljs-keyword">return</span> Observable.create(<span class="hljs-function">(<span class="hljs-params">observer</span>) =&gt;</span> {
-      <span class="hljs-keyword">const</span> timeout = setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">const</span> timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Returning data'</span>);
         observer.next({
           <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD'</span>,
@@ -209,10 +209,10 @@
         observer.complete();
       }, <span class="hljs-number">1500</span>);
 
-      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> clearTimeout(timeout);
+      <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">clearTimeout</span>(timeout);
     });
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-keyword">return</span> of({
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">of</span>({
       <span class="hljs-keyword">type</span>: <span class="hljs-string">'REMOVE'</span>,
       data: id
     });
@@ -313,6 +313,6 @@
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.08e1e534efe3541e276e.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.2494c62dc736ab659190.js" defer=""></script>
 
 </body></html>
