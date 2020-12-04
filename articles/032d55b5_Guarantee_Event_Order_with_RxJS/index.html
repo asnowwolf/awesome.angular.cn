@@ -116,15 +116,15 @@
 </blockquote>
 <p translation-result="on"><strong>其思路是把选中/取消选中的事件通过管道发送</strong>到一个 RxJS Subject 中，然后依次处理它们。</p><p translation-origin="off"><strong>The idea is to pipe the events</strong> from the checking/unchecking into a RxJS subject and then process them one after the other.</p>
 
-<pre><code class="language-typescript"><span class="hljs-keyword">private</span> selectionSubject = <span class="hljs-keyword">new</span> Subject&lt;SelectionEvent&gt;();
-...
-<span class="hljs-built_in">this</span>.selectionEvent
+<pre><code class="language-typescript"><span class="hljs-keyword">private</span> selectionSubject = <span class="hljs-literal">new</span> Subject&lt;SelectionEvent&gt;();
+<span class="hljs-params">...</span>
+this.selectionEvent
   .pipe(
-    concatMap(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
-      ...
+    concatMap(<span class="hljs-built_in">data</span> =&gt; {
+      <span class="hljs-params">...</span>
     })
-  ).subscribe(<span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
-    ...
+  ).subscribe(action =&gt; {
+    <span class="hljs-params">...</span>
   })</code></pre>
 <p translation-result="on">我们会在 <code>concatMap</code> 中实现处理这些动作的逻辑。</p><p translation-origin="off">Inside the <code>concatMap</code> we implement the logic of handling the actions.</p>
 
@@ -179,8 +179,8 @@
   <span class="hljs-keyword">const</span> timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Returning data'</span>);
     observer.next({
-      <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD'</span>,
-      data: data.option
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'ADD'</span>,
+      <span class="hljs-attr">data</span>: data.option
     });
 
     <span class="hljs-comment">// complete the observable</span>
@@ -203,8 +203,8 @@
       <span class="hljs-keyword">const</span> timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Returning data'</span>);
         observer.next({
-          <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD'</span>,
-          data: data.option
+          <span class="hljs-attr">type</span>: <span class="hljs-string">'ADD'</span>,
+          <span class="hljs-attr">data</span>: data.option
         });
         observer.complete();
       }, <span class="hljs-number">1500</span>);
@@ -213,8 +213,8 @@
     });
   } <span class="hljs-keyword">else</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">of</span>({
-      <span class="hljs-keyword">type</span>: <span class="hljs-string">'REMOVE'</span>,
-      data: id
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'REMOVE'</span>,
+      <span class="hljs-attr">data</span>: id
     });
   }
 })</code></pre>
@@ -313,6 +313,6 @@
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.2494c62dc736ab659190.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.ccb26635e902898752ff.js" defer=""></script>
 
 </body></html>

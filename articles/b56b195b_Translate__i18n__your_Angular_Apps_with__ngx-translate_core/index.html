@@ -67,7 +67,7 @@ The following translations should be stored in en.json</p>
    TranslateService</p>
 
 <pre><code class="language-javascript"><span class="hljs-comment">// app.component.ts</span>
-translate.get(<span class="hljs-string">"HELLO"</span>, { value: <span class="hljs-string">"world"</span> }).subscribe(<span class="hljs-function">(<span class="hljs-params">res: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+translate.get(<span class="hljs-string">"HELLO"</span>, { <span class="hljs-attr">value</span>: <span class="hljs-string">"world"</span> }).subscribe(<span class="hljs-function">(<span class="hljs-params">res: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(res); <span class="hljs-comment">//=&gt; 'hello world'</span>
 });</code></pre>
 <p>TranslatePipe</p>
@@ -131,19 +131,19 @@ There is a loader for po files aswell but it uses the deprecated Http service so
 <span class="hljs-keyword">import</span> { TranslateLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">"@ngx-translate/core"</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> gettext <span class="hljs-keyword">from</span> <span class="hljs-string">"gettext-parser"</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TranslatePoHttpLoader <span class="hljs-keyword">implements</span> TranslateLoader {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TranslatePoHttpLoader</span> <span class="hljs-title">implements</span> <span class="hljs-title">TranslateLoader</span> </span>{
   <span class="hljs-keyword">public</span> domain = <span class="hljs-string">""</span>;
 
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
     <span class="hljs-keyword">protected</span> _http: HttpClient,
-    <span class="hljs-keyword">protected</span> _prefix: <span class="hljs-built_in">string</span> = "i18n",
-    <span class="hljs-keyword">protected</span> _suffix: <span class="hljs-built_in">string</span> = ".po"
-  </span>) {}
+    <span class="hljs-keyword">protected</span> _prefix: <span class="hljs-built_in">string</span> = <span class="hljs-string">"i18n"</span>,
+    <span class="hljs-keyword">protected</span> _suffix: <span class="hljs-built_in">string</span> = <span class="hljs-string">".po"</span>
+  </span>)</span> {}
 
   <span class="hljs-comment">// Gets the translations from file</span>
   <span class="hljs-keyword">public</span> getTranslation(lang: <span class="hljs-built_in">string</span>): Observable {
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._http
-      .get(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">this</span>._prefix}</span>/<span class="hljs-subst">${lang}</span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._suffix}</span>`</span>, { responseType: <span class="hljs-string">"text"</span> })
+      .get(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">this</span>._prefix}</span>/<span class="hljs-subst">${lang}</span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._suffix}</span>`</span>, { <span class="hljs-attr">responseType</span>: <span class="hljs-string">"text"</span> })
       .map(<span class="hljs-function">(<span class="hljs-params">contents: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">this</span>.parse(contents));
   }
 
@@ -188,25 +188,25 @@ There is a loader for po files aswell but it uses the deprecated Http service so
 }
 
 <span class="hljs-meta">@NgModule</span>({
-  imports: [
+  <span class="hljs-attr">imports</span>: [
     ...
     TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createPoTranslateLoader,
-        deps: [HttpClient]
+      <span class="hljs-attr">loader</span>: {
+        <span class="hljs-attr">provide</span>: TranslateLoader,
+        <span class="hljs-attr">useFactory</span>: createPoTranslateLoader,
+        <span class="hljs-attr">deps</span>: [HttpClient]
       },
-      compiler: {
-        provide: TranslateCompiler,
-        useClass: TranslateMessageFormatCompiler
+      <span class="hljs-attr">compiler</span>: {
+        <span class="hljs-attr">provide</span>: TranslateCompiler,
+        <span class="hljs-attr">useClass</span>: TranslateMessageFormatCompiler
       },
-      useDefaultLang: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">useDefaultLang</span>: <span class="hljs-literal">true</span>
     })
   ]
   ...
 })
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AppModule {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> translate: TranslateService</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppModule</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> translate: TranslateService</span>)</span> {
     <span class="hljs-comment">// this language will be used as a fallback when a translation isn't found in the current language</span>
     translate.setDefaultLang(<span class="hljs-string">"en"</span>);
 
@@ -251,7 +251,7 @@ msgstr <span class="hljs-string">"Coder!!!!!!"</span></code></pre>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span></span><span class="hljs-template-variable">{{ <span class="hljs-name">'words'</span> | translate:{count:7} }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span></code></pre>
 <pre><code class="language-javascript"><span class="hljs-comment">// Use the service</span>
-<span class="hljs-attr">Controller</span>: <span class="hljs-built_in">this</span>.translate.get(<span class="hljs-string">"harish"</span>).subscribe(<span class="hljs-function"><span class="hljs-params">h</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(h)); <span class="hljs-comment">//=&gt; Coder!!!!!!</span></code></pre>
+Controller: <span class="hljs-keyword">this</span>.<span class="hljs-built_in">translate</span>.<span class="hljs-built_in">get</span>(<span class="hljs-string">"harish"</span>).subscribe(h =&gt; console.<span class="hljs-built_in">log</span>(h)); <span class="hljs-comment">//=&gt; Coder!!!!!!</span></code></pre>
 <p translation-result="on">致谢：感谢 <a href="https://twitter.com/SebFlorian" target="_blank">@SebFlorian</a>、<a href="https://twitter.com/tobmaster" target="_blank">@tobmaster</a> 和 <a href="https://twitter.com/Sureshkumar_Ash" target="_blank">@Sureshkumar_Ash</a> 进行审校。</p><p translation-origin="off">Credits:
 Thx <a href="https://twitter.com/SebFlorian" rel="noopener" target="_blank">@SebFlorian</a>, <a href="https://twitter.com/tobmaster" target="_blank">@tobmaster</a> <a href="https://twitter.com/Sureshkumar_Ash" rel="noopener" target="_blank">@Sureshkumar_Ash</a> for reviewing.</p>
 
@@ -272,6 +272,6 @@ Thx <a href="https://twitter.com/SebFlorian" rel="noopener" target="_blank">@Seb
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.2494c62dc736ab659190.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.ccb26635e902898752ff.js" defer=""></script>
 
 </body></html>

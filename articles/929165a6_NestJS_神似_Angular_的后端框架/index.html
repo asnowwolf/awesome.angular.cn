@@ -86,10 +86,10 @@
   update(<span class="hljs-meta">@Param(<span class="hljs-meta-string">'id'</span>)</span> id: string, <span class="hljs-meta">@Body()</span> updateCatDto: UpdateCatDto): string {
     <span class="hljs-keyword">return</span> `This action updates a #${id} cat`;
   }</code></pre><p>不但如此，NestJS 还提供了帮你自定义装饰器的工具函数：</p>
-<pre><code>import { createParamDecorator } <span class="hljs-keyword">from</span> <span class="hljs-string">'@nestjs/common'</span>;
+<pre><code><span class="hljs-keyword">import</span> { createParamDecorator } <span class="hljs-keyword">from</span> <span class="hljs-string">'@nestjs/common'</span>;
 
-<span class="hljs-builtin-name">export</span> const<span class="hljs-built_in"> User </span>= createParamDecorator((data, req) =&gt; {
-  return req.user;
+<span class="hljs-keyword">export</span> const User = createParamDecorator(<span class="hljs-function"><span class="hljs-params">(data, req)</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> req.user;
 });</code></pre><p>一如既往的，它和 Angular 中的同名函数一模一样。</p>
 <h2 id="方便快捷的-cli-工具">方便快捷的 CLI 工具<a href="http://localhost:4000/articles/929165a6_NestJS_%E7%A5%9E%E4%BC%BC_Angular_%E7%9A%84%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6#%E6%96%B9%E4%BE%BF%E5%BF%AB%E6%8D%B7%E7%9A%84-cli-%E5%B7%A5%E5%85%B7" title="点击链接到此标题" class="header-link" aria-hidden="true"><i class="material-icons">link</i></a></h2>
 <p>和 Angular CLI 一样，Nest CLI 也提供了 <code>new</code>（新建工程）、<code>generate</code>（创建各种部件）、<code>update</code>（自动升级依赖）、<code>add</code>（添加第三方库）等功能，帮助你更简单的进行开发，省去一些琐碎的工作。</p>
@@ -117,6 +117,6 @@
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.2494c62dc736ab659190.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.ccb26635e902898752ff.js" defer=""></script>
 
 </body></html>

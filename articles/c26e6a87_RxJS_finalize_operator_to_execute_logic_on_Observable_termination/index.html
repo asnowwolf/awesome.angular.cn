@@ -30,27 +30,27 @@
 
 <p translation-result="on">来看看 RxJS 的 <code>Observable</code> 订阅：</p><p translation-origin="off">Let’s take a look at an RxJS <code>Observable</code> subscription:</p>
 
-<pre><code class="language-typescript"><span class="hljs-built_in">this</span>.someService.fetchDataFromApi()
-  .subscribe(
-    <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+<pre><code class="language-typescript"><span class="hljs-selector-tag">this</span><span class="hljs-selector-class">.someService</span><span class="hljs-selector-class">.fetchDataFromApi</span>()
+  <span class="hljs-selector-class">.subscribe</span>(
+    result =&gt; {
       <span class="hljs-comment">// success</span>
     },
-    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    err =&gt; {
       <span class="hljs-comment">// some error happened</span>
     }
   )</code></pre>
 <p translation-result="on">假设我们表单上的某个按钮会触发这个调用。很多人还可能双击那些按钮，而我们肯定不希望往后端 API 发送两个调用。当然，有多种方法可以避免这种情况，我们这里要用的方案是：一旦点击某个按钮，就禁用它，并在 http 调用结束时重新启用它。</p><p translation-origin="off">Assume this call is triggered by a button click on our form. Many people still double-click on those buttons and we definitely want to prevent 2 calls being sent to our backend API. There are different ways to avoid that of course, but for the purpose of this exable, let’s go the route of disabling the button once it has been clicked, and re-enable it when the http call terminates.</p>
 
-<pre><code class="language-typescript"><span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">true</span>;
-<span class="hljs-built_in">this</span>.someService.fetchDataFromApi()
+<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">this</span>.someService.fetchDataFromApi()
   .subscribe(
-    <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+    result =&gt; {
       <span class="hljs-comment">// success</span>
-      <span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">false</span>;
     },
-    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    err =&gt; {
       <span class="hljs-comment">// some error happened</span>
-      <span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">false</span>;
     }
   )</code></pre>
 <p translation-result="on">无论何时设置了 <code>isLoading</code>，我们都会禁用表单上的按钮。就像之前的例子中一样，<code>isLoading = false</code> 这段代码写了两次，因为无论成功还是失败，我们都要重新启用该按钮。</p><p translation-origin="off">Whenever <code>isLoading</code> is set, we disable our button on the form. Now as in the example before, the <code>isLoading = false</code> instruction is duplicated, because we want to re-enable the button in both, success and error cases.</p>
@@ -59,18 +59,18 @@
 
 <p translation-result="on">第一个选项是 <code>tap</code> 操作符。例如：</p><p translation-origin="off">One option could be the <code>tap</code> operator. For instance:</p>
 
-<pre><code class="language-typescript"><span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">true</span>;
-<span class="hljs-built_in">this</span>.someService.fetchDataFromApi()
+<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">true</span>;
+<span class="hljs-keyword">this</span>.someService.fetchDataFromApi()
   .pipe(
-    tap(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
-      <span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">false</span>;
+    tap(_ =&gt; {
+      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">false</span>;
     })
   )
   .subscribe(
-    <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+    result =&gt; {
       <span class="hljs-comment">// success</span>
     },
-    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    err =&gt; {
       <span class="hljs-comment">// some error happened</span>
     }
   )</code></pre>
@@ -104,18 +104,18 @@
 
 <p translation-result="on">另一种选择是使用 <code>finalize</code> 操作符。就像在大多数基于 C 的编程语言中存在的 <code>try-catch-finally</code> 结构一样。这样，我们就可以修改前面的例子：</p><p translation-origin="off">Another option is to use the <code>finalize</code> operator. It’s like in the <code>try-catch-finally</code> programming construct which is present in most C based programming languages. Hence, we can modify our example from before to the following:</p>
 
-<pre><code class="language-typescript"><span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">true</span>;
-<span class="hljs-built_in">this</span>.someService.fetchDataFromApi()
+<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">true</span>;
+<span class="hljs-keyword">this</span>.someService.fetchDataFromApi()
   .pipe(
-    finalize(<span class="hljs-function">() =&gt;</span> {
-      <span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">false</span>;
+    finalize(() =&gt; {
+      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">false</span>;
     })
   )
   .subscribe(
-    <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+    result =&gt; {
       <span class="hljs-comment">// success</span>
     },
-    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    err =&gt; {
       <span class="hljs-comment">// some error happened</span>
     }
   )</code></pre>
@@ -149,6 +149,6 @@
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.2494c62dc736ab659190.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.ccb26635e902898752ff.js" defer=""></script>
 
 </body></html>
