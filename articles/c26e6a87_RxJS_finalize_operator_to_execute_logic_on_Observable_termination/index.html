@@ -30,12 +30,12 @@
 
 <p translation-result="on">来看看 RxJS 的 <code>Observable</code> 订阅：</p><p translation-origin="off">Let’s take a look at an RxJS <code>Observable</code> subscription:</p>
 
-<pre><code class="language-typescript"><span class="hljs-selector-tag">this</span><span class="hljs-selector-class">.someService</span><span class="hljs-selector-class">.fetchDataFromApi</span>()
-  <span class="hljs-selector-class">.subscribe</span>(
-    result =&gt; {
+<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.someService.fetchDataFromApi()
+  .subscribe(
+    <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
       <span class="hljs-comment">// success</span>
     },
-    err =&gt; {
+    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
       <span class="hljs-comment">// some error happened</span>
     }
   )</code></pre>
@@ -59,15 +59,15 @@
 
 <p translation-result="on">第一个选项是 <code>tap</code> 操作符。例如：</p><p translation-origin="off">One option could be the <code>tap</code> operator. For instance:</p>
 
-<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">true</span>;
+<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">this</span>.someService.fetchDataFromApi()
   .pipe(
-    tap(_ =&gt; {
-      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">false</span>;
+    tap(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
+      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">false</span>;
     })
   )
   .subscribe(
-    result =&gt; {
+    <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
       <span class="hljs-comment">// success</span>
     },
     err =&gt; {
@@ -78,16 +78,16 @@
 
 <p translation-result="on">不过，该操作符需要一个 config 对象，它允许我们挂钩一个 Observable 的 <code>next</code>、<code>error</code> 和 <code>complete</code> 事件状态，就像我们在 <code>subscribe</code> 中所做的那样。</p><p translation-origin="off">The operator however takes a config object that allows us to hook onto the <code>next</code>, <code>error</code> and <code>complete</code> event state of an Observable, very much like we can do in the <code>subscribe</code>.</p>
 
-<pre><code class="language-typescript"><span class="hljs-built_in">this</span>.someService.fetchDataFromApi()
+<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.someService.fetchDataFromApi()
   .pipe(
     tap({
       next: <span class="hljs-function"><span class="hljs-params">(x)</span> =&gt;</span> {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tap success'</span>, x);
-        <span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">false</span>;
       },
       error: <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span> {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tap error'</span>, err);
-        <span class="hljs-built_in">this</span>.isLoading = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">false</span>;
       },
       complete: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tap complete'</span>)
     }),
@@ -104,18 +104,18 @@
 
 <p translation-result="on">另一种选择是使用 <code>finalize</code> 操作符。就像在大多数基于 C 的编程语言中存在的 <code>try-catch-finally</code> 结构一样。这样，我们就可以修改前面的例子：</p><p translation-origin="off">Another option is to use the <code>finalize</code> operator. It’s like in the <code>try-catch-finally</code> programming construct which is present in most C based programming languages. Hence, we can modify our example from before to the following:</p>
 
-<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">true</span>;
+<pre><code class="language-typescript"><span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">this</span>.someService.fetchDataFromApi()
   .pipe(
-    finalize(() =&gt; {
-      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-keyword">false</span>;
+    finalize(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">this</span>.isLoading = <span class="hljs-literal">false</span>;
     })
   )
   .subscribe(
-    result =&gt; {
+    <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
       <span class="hljs-comment">// success</span>
     },
-    err =&gt; {
+    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
       <span class="hljs-comment">// some error happened</span>
     }
   )</code></pre>
@@ -149,6 +149,6 @@
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.ccb26635e902898752ff.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.08e1e534efe3541e276e.js" defer=""></script>
 
 </body></html>

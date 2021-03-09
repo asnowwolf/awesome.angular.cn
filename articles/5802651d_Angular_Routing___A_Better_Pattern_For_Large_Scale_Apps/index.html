@@ -60,7 +60,7 @@
         account<span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.module</span><span class="hljs-selector-class">.ts</span>
           <span class="hljs-selector-tag">details</span>
             <span class="hljs-selector-tag">details</span><span class="hljs-selector-class">.module</span><span class="hljs-selector-class">.ts</span>
-            <span class="hljs-selector-tag">details</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.module</span>.ts</code></pre><p translation-result="on">以 <code>details.routing.module.ts</code> 为例。</p><p translation-origin="off">Take <code>details.routing.module.ts</code> for example.</p>
+            <span class="hljs-selector-tag">details</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.module</span><span class="hljs-selector-class">.ts</span></code></pre><p translation-result="on">以 <code>details.routing.module.ts</code> 为例。</p><p translation-origin="off">Take <code>details.routing.module.ts</code> for example.</p>
 
 <p translation-result="on">在“路由模块”方式下，我们总是从基本 URL 开始定义路由 URL。</p><p translation-origin="off">With the “Routing Module” approach we always begin our route URLs from the base URL.</p>
 
@@ -173,22 +173,22 @@ export class DetailsRoutingModule{ }</code></pre>
         account<span class="hljs-selector-class">.routes</span><span class="hljs-selector-class">.ts</span>
           <span class="hljs-selector-tag">details</span>
             <span class="hljs-selector-tag">details</span><span class="hljs-selector-class">.module</span><span class="hljs-selector-class">.ts</span>
-            <span class="hljs-selector-tag">details</span><span class="hljs-selector-class">.routes</span>.ts</code></pre><p translation-result="on">对于急性加载的路由来说，要实现与惰性加载路由一样的行为（也就是说，把它们叠加到父路由之上而不用知道它的前缀），我就会用到这个简单的技巧：</p><p translation-origin="off">Now, for the eager loaded routes, to achieve the same behavior as the lazy loaded routes (meaning, to stack them up on top their parent route without knowing its prefix) I use this simple trick:</p>
+            <span class="hljs-selector-tag">details</span><span class="hljs-selector-class">.routes</span><span class="hljs-selector-class">.ts</span></code></pre><p translation-result="on">对于急性加载的路由来说，要实现与惰性加载路由一样的行为（也就是说，把它们叠加到父路由之上而不用知道它的前缀），我就会用到这个简单的技巧：</p><p translation-origin="off">Now, for the eager loaded routes, to achieve the same behavior as the lazy loaded routes (meaning, to stack them up on top their parent route without knowing its prefix) I use this simple trick:</p>
 
 <p translation-result="on">我把这些嵌套的路由作为其父路由下的 <code>children</code> 属性的值进行加载。</p><p translation-origin="off">I load the nested routes as the value of the <code>children</code> property under their parent loading route.</p>
 
 <pre><code class="language-typescript">details.routes.ts
 ~~~~~~~~~~~~~~~~~
 export const DETAILS_ROUTES = [
-  { <span class="hljs-attr">path:</span> <span class="hljs-string">''</span>, <span class="hljs-attr">component:</span> DetailsComponent },
-  { <span class="hljs-attr">path:</span> <span class="hljs-string">'some-other-route'</span>, <span class="hljs-attr">component:</span> SomeOtherComponent },
+  { <span class="hljs-string">path:</span> <span class="hljs-string">''</span>, <span class="hljs-string">component:</span> DetailsComponent },
+  { <span class="hljs-string">path:</span> <span class="hljs-string">'some-other-route'</span>, <span class="hljs-string">component:</span> SomeOtherComponent },
 ];
 account.routes.ts
 ~~~~~~~~~~~~~~~~~
 <span class="hljs-keyword">import</span> { DETAILS_ROUTES } from <span class="hljs-string">'./details/details.routes'</span>;
 export const ACCOUNT_ROUTES = [
-  { <span class="hljs-attr">path:</span> <span class="hljs-string">''</span>, <span class="hljs-attr">component:</span> AccountComponent },
-  { <span class="hljs-attr">path:</span> <span class="hljs-string">'details'</span>, <span class="hljs-attr">children:</span> DETAILS_ROUTES }
+  { <span class="hljs-string">path:</span> <span class="hljs-string">''</span>, <span class="hljs-string">component:</span> AccountComponent },
+  { <span class="hljs-string">path:</span> <span class="hljs-string">'details'</span>, <span class="hljs-string">children:</span> DETAILS_ROUTES }
 ];</code></pre>
 <p translation-result="on">用这种方式，我可以保持一切都是模块化和可插拔的。</p><p translation-origin="off">That way, I keep everything modular and pluggable.</p>
 
@@ -265,14 +265,14 @@ export const ACCOUNT<span class="hljs-emphasis">_ROUTES = [
 ~~~~~~~~~~~~~~~~~~~~~
 <span class="hljs-keyword">import</span> { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
 <span class="hljs-keyword">import</span> { accountRoutesNames } <span class="hljs-keyword">from</span> <span class="hljs-string">'./account.routes.names'</span>;
-<span class="hljs-meta">@Component</span>({
-  <span class="hljs-attr">selector</span>: <span class="hljs-string">'app-account'</span>,
-  <span class="hljs-attr">template</span>: <span class="hljs-string">`
-    &lt;a routerLink="{{detailsLink}}"&gt;Go To Details&lt;/a&gt;
-  `</span>
+@Component({
+  selector: <span class="hljs-string">'app-account'</span>,
+  template: `<span class="javascript">
+    &lt;a routerLink=<span class="hljs-string">"{{detailsLink}}"</span>&gt;Go To Details&lt;<span class="hljs-regexp">/a&gt;
+  </span></span>`
 })
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountComponent</span> </span>{
-  detailsLink = <span class="hljs-string">`./<span class="hljs-subst">${accountRoutesNames.DETAILS}</span>`</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountComponent</span> {</span>
+  detailsLink = `<span class="javascript"><span class="hljs-regexp">./</span>${accountRoutesNames.DETAILS}</span>`;
 }</code></pre>
 <p translation-result="on">这样我就可以轻松地进行重构，只要每当我需要一个路由URL字符串时，就会继续使用变量，它就不会影响我的路由器链接或路由器测试。</p><p translation-origin="off">That way I could refactor with ease, and it won’t ever affect my router links or router tests as long as I keep using variables whenever I need a route URL string.</p>
 
@@ -323,6 +323,6 @@ export const ACCOUNT<span class="hljs-emphasis">_ROUTES = [
 
   gtag('config', 'UA-159351998-1');
 </script>
-<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.ccb26635e902898752ff.js" defer=""></script>
+<script src="runtime.689ba4fd6cadb82c1ac2.js" defer=""></script><script src="polyfills.80bd341d56a2f827dd16.js" defer=""></script><script src="main.08e1e534efe3541e276e.js" defer=""></script>
 
 </body></html>
